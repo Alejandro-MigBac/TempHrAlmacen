@@ -122,7 +122,7 @@ class ControladorPrincipal:
                     fecha=lectura.fecha,
                     hora=lectura.hora,
                     valor_alarma=lectura.temperatura,
-                    almacen=lectura_id,
+                    almacen=lectura.id_almacen,
                 )
             self.vista.mostrar_alerta(lectura.temperatura)
         else:
