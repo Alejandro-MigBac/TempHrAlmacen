@@ -4,7 +4,7 @@ import sys
 from datetime import datetime
 
 # Agregamos la ruta del proyecto actual al PYTHONPATH para evitar errores de modulo
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from flask import Flask, request, jsonify, render_template_string
 from app.repositories.configdb import ConfigDB
