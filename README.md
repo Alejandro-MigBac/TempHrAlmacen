@@ -1,12 +1,13 @@
 # TempHrAlmacén
-Registro y control de temperatura y humedad relativa de un almacén
+Registro y control de temperatura y humedad relativa de un almacén farmacéutico.
 
 ## 🚀 Características
 
-- **Dashboard en Tiempo Real**: Visualización de temperatura y humedad con gráficos interactivos.
-- **Alertas Automáticas**: Notificaciones cuando los niveles exceden los umbrales seguros.
-- **Persistencia de Datos**: Almacenamiento seguro en base de datos SQLite.
-- **Simulador Integrado**: Herramienta para simular lecturas de sensores y probar el sistema.
+- **Dashboard Web en Tiempo Real**: Visualización de temperatura y humedad con gráficos interactivos (Plotly.js).
+- **GUI de Escritorio**: Interfaz gráfica nativa con Tkinter siguiendo el patrón MVC.
+- **Alertas Automáticas**: Notificaciones cuando la temperatura supera los 25°C.
+- **Persistencia de Datos**: Almacenamiento en base de datos SQLite con ventana móvil de 24 horas.
+- **Simulador Integrado**: Herramienta para simular lecturas de sensores sin hardware real.
 
 ## 🛠️ Instalación
 
@@ -29,45 +30,55 @@ Registro y control de temperatura y humedad relativa de un almacén
 
 ## 🏃 Ejecución
 
-### Opción 1: Modo Desarrollo (Recomendado)
-Ejecuta el backend y el frontend en terminales separadas.
+### Opción 1 — Interfaz local (Tkinter)
 
-**Terminal 1: Backend**
+Lanza la GUI nativa de escritorio con el panel de control y visualización en tiempo real.
+
 ```bash
-python app/api_server.py
+python main.py
 ```
 
-**Terminal 2: Frontend**
+### Opción 2 — Dashboard web (Flask)
+
+Levanta el servidor web con la API REST y el dashboard interactivo.
+
 ```bash
-python app/frontend.py
+python app.py
 ```
 
-Accede al dashboard en: [http://localhost:5000](http://localhost:5000)
-
-### Opción 2: Modo Producción
-```bash
-python app/api_server.py
-```
+Accede al dashboard en: [http://localhost:5000/dashboard](http://localhost:5000/dashboard)
 
 ## 🧪 Simulación
 
-Para probar el sistema sin hardware real, ejecuta el simulador:
+Para probar el sistema sin hardware real, ejecuta el simulador en una tercera terminal **con `app.py` ya arrancado**:
 
 ```bash
 python simulator.py
 ```
 
-El simulador enviará datos cada 10 segundos y generará picos de temperatura aleatorios para probar las alertas.
+El simulador enviará lecturas cada 10 segundos al endpoint `/ingest` y generará picos de temperatura aleatorios (>25°C) con un 15% de probabilidad para activar las alertas.
+
+## 📡 API Endpoints
+
+| Método | Ruta | Descripción |
+|--------|------|-------------|
+| `POST` | `/ingest` | Recibe una lectura de sensor `{"temperatura": X, "humedad": Y}` |
+| `GET` | `/dashboard` | Dashboard web interactivo en tiempo real |
+| `GET` | `/api/data` | Datos históricos de las últimas 24h (JSON) |
+| `GET` | `/api/static?window=<t>` | Vista estática para un intervalo (`5m`, `1h`, `24h`, `1w`) |
 
 ## 📂 Estructura del Proyecto
 
 ```
 TempHrAlmacen/
 ├── app/
-│   ├── api_server.py       # Servidor API y lógica de negocio
-│   ├── frontend.py         # Interfaz de usuario (Streamlit)
-│   ├── database.py         # Gestión de base de datos
-│   └── models.py           # Modelos de datos
+│   ├── controller/         # Controladores (patrón MVC)
+│   ├── models/             # Modelos de datos
+│   ├── repositories/       # Acceso a base de datos SQLite
+│   ├── services/           # Lógica de negocio
+│   └── view/               # Vistas Tkinter
+├── app.py                  # Servidor Flask: API REST + Dashboard web
+├── main.py                 # Punto de entrada de la GUI Tkinter
 ├── simulator.py            # Simulador de sensores
 ├── requirements.txt        # Dependencias del proyecto
 └── README.md               # Documentación
