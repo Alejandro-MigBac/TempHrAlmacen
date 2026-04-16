@@ -25,11 +25,29 @@ class PlotlyService:
     # ------------------------------------------------------------------ #
     def generar_grafico_combinado(self, lecturas, titulo="Monitorización Climática"):
         """
-        Genera un gráfico con dos subplots: temperatura y humedad.
+        Crea un archivo HTML interactivo con dos subplots: Temperatura y Humedad.
+
+        Procesa los datos de lectura para generar visualizaciones temporales, 
+        incluye una línea de umbral de alerta para la temperatura y abre 
+        automáticamente el gráfico resultante en el navegador predeterminado.
 
         Args:
-            lecturas: lista de dicts con claves 'fecha', 'hora', 'temperatura', 'humedad'
-            titulo: título del gráfico
+            lecturas (list[dict]): Lista de diccionarios donde cada elemento debe 
+                contener las claves:
+                - 'fecha' (str): Fecha de la medición.
+                - 'hora' (str): Hora de la medición.
+                - 'temperatura' (float): Valor térmico en grados Celsius.
+                - 'humedad' (float): Porcentaje de humedad relativa.
+            titulo (str, optional): Título principal que se mostrará en la parte 
+                superior del gráfico. Por defecto es "Monitorización Climática".
+
+        Returns:
+            None: La función no retorna ningún valor; genera un archivo físico 
+                en el directorio temporal y lanza el navegador.
+
+        Note:
+            Si la lista de 'lecturas' está vacía, la función finaliza de forma 
+            silenciosa sin generar ningún archivo.
         """
         if not lecturas:
             return
@@ -109,11 +127,20 @@ class PlotlyService:
     # ------------------------------------------------------------------ #
     def generar_grafico_intervalo(self, lecturas, etiqueta_intervalo):
         """
-        Genera un gráfico filtrado por intervalo de tiempo.
+        Genera una visualización filtrada específicamente por un periodo de tiempo.
+
+        Esta función actúa como un "wrapper" o envoltorio de 'generar_grafico_combinado', 
+        personalizando automáticamente el título para reflejar el rango temporal 
+        analizado (ej. "Últimos 5 Minutos", "Últimas 24 Horas").
 
         Args:
-            lecturas: lista de dicts filtrada por intervalo
-            etiqueta_intervalo: texto descriptivo del intervalo (e.g., '5 Minutos')
+            lecturas (list[dict]): Lista de diccionarios con los datos climáticos 
+                ya filtrados según el intervalo deseado.
+            etiqueta_intervalo (str): Texto descriptivo que indica el periodo 
+                de tiempo (ej. '15 Minutos', 'Día', 'Mes').
+
+        Returns:
+            None: Delega la creación y apertura del gráfico a 'generar_grafico_combinado'.
         """
         titulo = f"Monitorización Climática — Últimos {etiqueta_intervalo}"
         self.generar_grafico_combinado(lecturas, titulo=titulo)
