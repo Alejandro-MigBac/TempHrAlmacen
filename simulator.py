@@ -5,7 +5,8 @@ import logging
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s')
 
-API_URL = "http://127.0.0.1:5000/ingest"
+# API_URL = "http://127.0.0.1:5000/ingest"
+API_URL = "http://temp-hr-almacen.vercel.app/ingest"
 
 def simulate_sensor():
     logging.info("Iniciando simulador de sensor. Presiona Ctrl+C para detener.")
