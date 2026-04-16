@@ -7,7 +7,7 @@ from datetime import datetime
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from flask import Flask, request, jsonify, render_template_string
-from app.repositories.configdb import ConfigDB
+from application.repositories.configdb import ConfigDB
 
 app = Flask(__name__)
 # Inicializamos el Repositorio de la DB a su ubicacion correcta

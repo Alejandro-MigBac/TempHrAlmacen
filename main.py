@@ -12,9 +12,9 @@ import os
 # Asegurar que el directorio raíz del proyecto esté en el path
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from app.repositories.configdb import ConfigDB
-from app.view.ventana_ppal import VentanaPrincipal
-from app.controller.controlador_ppal import ControladorPrincipal
+from application.repositories.configdb import ConfigDB
+from application.view.ventana_ppal import VentanaPrincipal
+from application.controller.controlador_ppal import ControladorPrincipal
 
 
 def main():
