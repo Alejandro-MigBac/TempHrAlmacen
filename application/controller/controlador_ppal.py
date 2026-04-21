@@ -7,9 +7,9 @@ Controla el ciclo de monitoreo, alertas y generación de gráficos.
 
 import threading
 import queue
-from app.models.almacen import Almacen
-from app.repositories.configdb import ConfigDB
-from app.services.plotly_service import PlotlyService
+from application.models.almacen import Almacen
+from application.repositories.configdb import ConfigDB
+from application.services.plotly_service import PlotlyService
 
 
 class ControladorPrincipal:

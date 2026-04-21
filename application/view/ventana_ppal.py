@@ -7,9 +7,9 @@ botones de control y botones de intervalo temporal para gráficos Plotly.
 
 import tkinter as tk
 from tkinter import messagebox
-from app.view.componentes.indicador import Indicador
-from app.view.componentes.tabla_lecturas import TablaLecturas
-from app.view.componentes.grafico_realtime import GraficoRealtime
+from application.view.componentes.indicador import Indicador
+from application.view.componentes.tabla_lecturas import TablaLecturas
+from application.view.componentes.grafico_realtime import GraficoRealtime
 
 
 class VentanaPrincipal:
